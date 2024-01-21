@@ -31,25 +31,29 @@ function handleMoveEvent(e) {
 
   const touches = e.touches || [e]
   for (const touch of touches) {
+    const cX = touch.clientX + window.scrollX
+    const cY = touch.clientY + window.scrollY
+
     if (range.value) {
       var way =
         Math.sqrt(
-          Math.pow(range.pos.x - touch.clientX, 2) +
-            Math.pow(range.pos.y - touch.clientY, 2)
-        ) + .1
+          Math.pow(range.pos.x - cX, 2) + Math.pow(range.pos.y - cY, 2)
+        ) + 0.1
       range.value = way
     }
-    range.pos.x = touch.clientX
-    range.pos.y = touch.clientY
+    range.pos.x = cX
+    range.pos.y = cY
 
     if (way >= appData.starRange) {
       const star = HTML.add(HTML.star(), document.body)
 
-      star.style.left = `${touch.clientX}px`
-      star.style.top = `${touch.clientY}px`
+      star.style.left = `${cX}px`
+      star.style.top = `${cY}px`
 
       star.style.background = `${Random.color()}`
-      setTimeout(() => star.remove(), appData.starRemoveTime)
+      star.ontransitionend = () => {
+        star.remove()
+      }
     }
   }
 }
@@ -61,5 +65,6 @@ function isInWindow(e) {
   const x = 0 <= e.x && e.x <= bWidth
   const y = 0 <= e.y && e.y <= bHeight
 
+  return true
   return x && y
 }

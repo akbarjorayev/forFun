@@ -1,8 +1,8 @@
 const appData = {
   show: false,
-  starRemoveTime: 300,
+  starRemoveTime: 500,
   starBgColor: 300,
-  starRange: 5,
+  starRange: 1,
 }
 
 export default appData

@@ -2,7 +2,6 @@ html,
 body {
   background-color: var(--body-bg);
   height: 100%;
-  overflow: hidden;
   margin: 0;
 }
 
@@ -10,68 +9,25 @@ body {
   width: var(--star-size);
   height: var(--star-size);
   filter: blur(var(--star-blur));
-  position: fixed;
-  clip-path: polygon(
-    50% 0%,
-    61% 35%,
-    98% 35%,
-    68% 57%,
-    79% 91%,
-    50% 70%,
-    21% 91%,
-    32% 57%,
-    2% 35%,
-    39% 35%
-  );
+  position: absolute;
   opacity: 0.4;
+  animation: starAnim 4s linear;
 }
 
-.x_rotate {
-  animation: xRotate 1s linear;
-}
-
-@keyframes xRotate {
+@keyframes starAnim {
   0% {
-    transform: scale(1) rotateX(0);
+    transform: scale(var(--star-from-scale));
   }
 
   100% {
-    transform: scale(var(--star-max-scale)) rotateX(var(--star-rotate-max-deg));
-  }
-}
-
-.y_rotate {
-  animation: yRotate 1s linear;
-}
-
-@keyframes yRotate {
-  0% {
-    transform: scale(1) rotateY(0);
-  }
-
-  100% {
-    transform: scale(var(--star-max-scale)) rotateY(var(--star-rotate-max-deg));
-  }
-}
-
-.z_rotate {
-  animation: zRotate 1s linear;
-}
-
-@keyframes zRotate {
-  0% {
-    transform: scale(1) rotateZ(0);
-  }
-
-  100% {
-    transform: scale(var(--star-max-scale)) rotateZ(var(--star-rotate-max-deg));
+    transform: scale(var(--star-to-scale));
   }
 }
 
 :root {
   --star-size: 20px;
-  --star-max-scale: 0.9;
-  --star-rotate-max-deg: 270deg;
+  --star-from-scale: 1;
+  --star-to-scale: 1;
   --star-blur: 5px;
-  --body-bg: #000;
+  --body-bg: #393939;
 }
