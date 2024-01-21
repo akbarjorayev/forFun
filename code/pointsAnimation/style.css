@@ -1,0 +1,51 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: #000;
+}
+
+.points_area {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.df {
+  display: flex;
+}
+
+.point {
+  width: var(--point-size);
+  height: var(--point-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  padding: 5px;
+}
+
+.point:hover .point_item {
+  transform: scale(1.2);
+}
+
+.point_item {
+  width: 90%;
+  height: 90%;
+  background-color: #aeaeae;
+  border-radius: 50%;
+  transition: transform 0.2s ease-in-out;
+}
+
+.point:active .point_item {
+  transform: scale(.9);
+}
+
+:root {
+  --point-amount-x: 100;
+  --point-amount-y: 50;
+  --point-size: 15px;
+}
