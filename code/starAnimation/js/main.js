@@ -2,6 +2,14 @@ import * as Random from './random.js'
 import appData from './appData.js'
 import * as HTML from './html.js'
 
+let range = {
+  pos: {
+    x: 0,
+    y: 0,
+  },
+  value: 1,
+}
+
 window.onmousedown = window.ontouchstart = (e) => {
   appData.show = true
   handleMoveEvent(e)
@@ -23,13 +31,26 @@ function handleMoveEvent(e) {
 
   const touches = e.touches || [e]
   for (const touch of touches) {
-    const star = HTML.add(HTML.star(), document.body)
+    if (range.value) {
+      var way =
+        Math.sqrt(
+          Math.pow(range.pos.x - touch.clientX, 2) +
+            Math.pow(range.pos.y - touch.clientY, 2)
+        ) + .1
+      range.value = way
+    }
+    range.pos.x = touch.clientX
+    range.pos.y = touch.clientY
 
-    star.style.left = `${touch.clientX}px`
-    star.style.top = `${touch.clientY}px`
+    if (way >= appData.starRange) {
+      const star = HTML.add(HTML.star(), document.body)
 
-    star.style.background = `${Random.color()}`
-    setTimeout(() => star.remove(), appData.starRemoveTime)
+      star.style.left = `${touch.clientX}px`
+      star.style.top = `${touch.clientY}px`
+
+      star.style.background = `${Random.color()}`
+      setTimeout(() => star.remove(), appData.starRemoveTime)
+    }
   }
 }
 
