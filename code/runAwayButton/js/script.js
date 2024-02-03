@@ -12,24 +12,25 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function moveBtn(e) {
   const { x, y } = getDataOfElement(btn)
+  const touch = e.touches ? e.touches[0] : e
 
-  const cursorPos = { x: e.clientX, y: e.clientY }
+  const cursorPos = { x: touch.clientX, y: touch.clientY }
   const btnPos = {
     x: x + btnW / 2,
     y: y + btnH / 2,
   }
 
   if (distance(cursorPos, btnPos) < 100) {
-    const dx = e.clientX - (x + btnW / 2)
-    const dy = e.clientY - (y + btnH / 2)
+    const dx = touch.clientX - (x + btnW / 2)
+    const dy = touch.clientY - (y + btnH / 2)
     let newX = x - dx
     let newY = y - dy
 
     const windowWidth = wWidth - btnW
     const windowHeight = wHeight - btnH
 
-    newX = newX < 0 ? 0 : newX > windowWidth ? windowWidth : newX
-    newY = newY < 0 ? 0 : newY > windowHeight ? windowHeight : newY
+    newX = Math.min(Math.max(newX, 0), windowWidth)
+    newY = Math.min(Math.max(newY, 0), windowHeight)
 
     btn.style.left = `${newX}px`
     btn.style.top = `${newY}px`
