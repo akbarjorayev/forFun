@@ -115,5 +115,3 @@ function writeResult(res) {
   resField.parentElement.classList.remove('hide')
   resField.textContent = res
 }
-
-// result_field
